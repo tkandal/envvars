@@ -7,8 +7,10 @@ import (
 	"strings"
 )
 
-func EnvWrapper(envs ...string) error {
-	prefix := strings.ToUpper(filepath.Base(os.Args[0])) + "_"
+// EnvWrapper checks if environment variables are prefixed with the program's name
+// plus separator, and translates them to environment variables without the prefix.
+func EnvWrapper(sep string, envs ...string) error {
+	prefix := strings.ToUpper(filepath.Base(os.Args[0])) + sep
 	for _, env := range envs {
 		val, ok := os.LookupEnv(prefix + env)
 		if !ok {
